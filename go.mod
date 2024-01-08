@@ -1,4 +1,4 @@
-module github.com/twpayne/go-geom
+module github.com/Parnian-Rad/go-geom
 
 go 1.19
 
