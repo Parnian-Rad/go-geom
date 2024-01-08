@@ -15,13 +15,13 @@ func NewLinearRingFlat(layout Layout, flatCoords []float64) *LinearRing {
 	g := new(LinearRing)
 	g.layout = layout
 	g.stride = layout.Stride()
-	g.FlatCoords = flatCoords
+	g.FlatCoordinates = flatCoords
 	return g
 }
 
 // Area returns the the area.
 func (g *LinearRing) Area() float64 {
-	return doubleArea1(g.FlatCoords, 0, len(g.FlatCoords), g.stride) / 2
+	return doubleArea1(g.FlatCoordinates, 0, len(g.FlatCoordinates), g.stride) / 2
 }
 
 // Clone returns a deep copy.
@@ -31,7 +31,7 @@ func (g *LinearRing) Clone() *LinearRing {
 
 // Length returns the length of the perimeter.
 func (g *LinearRing) Length() float64 {
-	return length1(g.FlatCoords, 0, len(g.FlatCoords), g.stride)
+	return length1(g.FlatCoordinates, 0, len(g.FlatCoordinates), g.stride)
 }
 
 // MustSetCoords sets the coordinates and panics if there is any error.

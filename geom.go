@@ -245,7 +245,7 @@ var (
 	errMisalignedEnd        = errors.New("geom: misaligned end")
 	errNonEmptyEnds         = errors.New("geom: non-empty ends")
 	errNonEmptyEndss        = errors.New("geom: non-empty endss")
-	errNonEmptyFlatCoords   = errors.New("geom: non-empty FlatCoords")
+	errNonEmptyFlatCoords   = errors.New("geom: non-empty FlatCoordinates")
 	errOutOfOrderEnd        = errors.New("geom: out-of-order end")
 	errStrideLayoutMismatch = errors.New("geom: stride/layout mismatch")
 )

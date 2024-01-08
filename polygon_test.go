@@ -33,7 +33,7 @@ func (g *Polygon) assertEquals(t *testing.T, e *expectedPolygon) {
 	assert.NoError(t, g.verify())
 	assert.Equal(t, e.layout, g.Layout())
 	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
+	assert.Equal(t, e.flatCoords, g.FlatCoordinates())
 	assert.Equal(t, e.ends, g.Ends())
 	assert.Zero(t, g.Endss())
 	assert.Equal(t, e.coords, g.Coords())
@@ -63,7 +63,7 @@ func TestPolygon(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.p.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.p.FlatCoords(), tc.p.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.p.FlatCoordinates(), tc.p.Clone().FlatCoordinates()))
 		})
 	}
 }

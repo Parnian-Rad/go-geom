@@ -25,7 +25,7 @@ func (g *MultiPoint) assertEquals(t *testing.T, e *expectedMultiPoint) {
 	assert.NoError(t, g.verify())
 	assert.Equal(t, e.layout, g.Layout())
 	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
+	assert.Equal(t, e.flatCoords, g.FlatCoordinates())
 	assert.Equal(t, e.ends, g.Ends())
 	assert.Zero(t, g.Endss())
 	assert.Equal(t, e.coords, g.Coords())
@@ -143,7 +143,7 @@ func TestMultiPoint(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.mp.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.mp.FlatCoords(), tc.mp.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.mp.FlatCoordinates(), tc.mp.Clone().FlatCoordinates()))
 		})
 	}
 }

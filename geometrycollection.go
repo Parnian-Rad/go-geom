@@ -87,7 +87,7 @@ func (g *GeometryCollection) Empty() bool {
 
 // FlatCoords panics.
 func (g *GeometryCollection) FlatCoords() []float64 {
-	panic("FlatCoords() called on a GeometryCollection")
+	panic("FlatCoordinates() called on a GeometryCollection")
 }
 
 // Ends panics.

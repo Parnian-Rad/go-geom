@@ -15,14 +15,14 @@ func NewMultiPolygonFlat(layout Layout, flatCoords []float64, endss [][]int) *Mu
 	g := new(MultiPolygon)
 	g.layout = layout
 	g.stride = layout.Stride()
-	g.FlatCoords = flatCoords
+	g.FlatCoordinates = flatCoords
 	g.endss = endss
 	return g
 }
 
 // Area returns the sum of the area of the individual Polygons.
 func (g *MultiPolygon) Area() float64 {
-	return doubleArea3(g.FlatCoords, 0, g.endss, g.stride) / 2
+	return doubleArea3(g.FlatCoordinates, 0, g.endss, g.stride) / 2
 }
 
 // Clone returns a deep copy.
@@ -32,7 +32,7 @@ func (g *MultiPolygon) Clone() *MultiPolygon {
 
 // Length returns the sum of the perimeters of the Polygons.
 func (g *MultiPolygon) Length() float64 {
-	return length3(g.FlatCoords, 0, g.endss, g.stride)
+	return length3(g.FlatCoordinates, 0, g.endss, g.stride)
 }
 
 // MustSetCoords sets the coordinates and panics on any error.
@@ -70,7 +70,7 @@ func (g *MultiPolygon) Polygon(i int) *Polygon {
 			ends[j] = end - offset
 		}
 	}
-	return NewPolygonFlat(g.layout, g.FlatCoords[offset:g.endss[i][len(g.endss[i])-1]], ends)
+	return NewPolygonFlat(g.layout, g.FlatCoordinates[offset:g.endss[i][len(g.endss[i])-1]], ends)
 }
 
 // Push appends a Polygon.
@@ -78,7 +78,7 @@ func (g *MultiPolygon) Push(p *Polygon) error {
 	if p.layout != g.layout {
 		return ErrLayoutMismatch{Got: p.layout, Want: g.layout}
 	}
-	offset := len(g.FlatCoords)
+	offset := len(g.FlatCoordinates)
 	var ends []int
 	if len(p.ends) > 0 {
 		ends = make([]int, len(p.ends))
@@ -90,7 +90,7 @@ func (g *MultiPolygon) Push(p *Polygon) error {
 			}
 		}
 	}
-	g.FlatCoords = append(g.FlatCoords, p.FlatCoords...)
+	g.FlatCoordinates = append(g.FlatCoordinates, p.FlatCoordinates...)
 	g.endss = append(g.endss, ends)
 	return nil
 }
