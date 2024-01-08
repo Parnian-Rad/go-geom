@@ -2,15 +2,15 @@ package geom
 
 import "math"
 
-type geom0 struct {
+type Geom0 struct {
 	layout     Layout
 	stride     int
-	flatCoords []float64
+	FlatCoords []float64
 	srid       int
 }
 
 type geom1 struct {
-	geom0
+	Geom0
 }
 
 type geom2 struct {
@@ -24,82 +24,82 @@ type geom3 struct {
 }
 
 // Bounds returns the bounds of g.
-func (g *geom0) Bounds() *Bounds {
-	return NewBounds(g.layout).extendFlatCoords(g.flatCoords, 0, len(g.flatCoords), g.stride)
+func (g *Geom0) Bounds() *Bounds {
+	return NewBounds(g.layout).extendFlatCoords(g.FlatCoords, 0, len(g.FlatCoords), g.stride)
 }
 
 // Coords returns all the coordinates in g, i.e. a single coordinate.
-func (g *geom0) Coords() Coord {
-	return inflate0(g.flatCoords, 0, len(g.flatCoords), g.stride)
+func (g *Geom0) Coords() Coord {
+	return inflate0(g.FlatCoords, 0, len(g.FlatCoords), g.stride)
 }
 
 // Empty returns true if g contains no coordinates.
-func (g *geom0) Empty() bool {
-	return len(g.flatCoords) == 0
+func (g *Geom0) Empty() bool {
+	return len(g.FlatCoords) == 0
 }
 
 // Ends returns the end indexes of sub-structures of g, i.e. an empty slice.
-func (g *geom0) Ends() []int {
+func (g *Geom0) Ends() []int {
 	return nil
 }
 
 // Endss returns the end indexes of sub-sub-structures of g, i.e. an empty
 // slice.
-func (g *geom0) Endss() [][]int {
+func (g *Geom0) Endss() [][]int {
 	return nil
 }
 
-// FlatCoords returns the flat coordinates of g.
-func (g *geom0) FlatCoords() []float64 {
-	return g.flatCoords
+// GetFlatCoords returns the flat coordinates of g.
+func (g *Geom0) GetFlatCoords() []float64 {
+	return g.FlatCoords
 }
 
 // Layout returns g's layout.
-func (g *geom0) Layout() Layout {
+func (g *Geom0) Layout() Layout {
 	return g.layout
 }
 
 // NumCoords returns the number of coordinates in g, i.e. 1.
-func (g *geom0) NumCoords() int {
+func (g *Geom0) NumCoords() int {
 	return 1
 }
 
 // Reserve reserves space in g for n coordinates.
-func (g *geom0) Reserve(n int) {
-	if cap(g.flatCoords) < n*g.stride {
-		fcs := make([]float64, len(g.flatCoords), n*g.stride)
-		copy(fcs, g.flatCoords)
-		g.flatCoords = fcs
+func (g *Geom0) Reserve(n int) {
+	if cap(g.FlatCoords) < n*g.stride {
+		fcs := make([]float64, len(g.FlatCoords), n*g.stride)
+		copy(fcs, g.FlatCoords)
+		g.FlatCoords = fcs
 	}
 }
 
 // SRID returns g's SRID.
-func (g *geom0) SRID() int {
+func (g *Geom0) SRID() int {
 	return g.srid
 }
 
-func (g *geom0) setCoords(coords0 []float64) error {
+func (g *Geom0) setCoords(coords0 []float64) error {
 	var err error
-	g.flatCoords, err = deflate0(nil, coords0, g.stride)
+	g.FlatCoords, err = deflate0(nil, coords0, g.stride)
 	return err
 }
 
 // Stride returns g's stride.
-func (g *geom0) Stride() int {
+func (g *Geom0) Stride() int {
 	return g.stride
 }
 
-func (g *geom0) verify() error {
+func (g *Geom0) verify() error {
 	if g.stride != g.layout.Stride() {
 		return errStrideLayoutMismatch
 	}
 	if g.stride == 0 {
-		if len(g.flatCoords) != 0 {
+		if len(g.FlatCoords) != 0 {
 			return errNonEmptyFlatCoords
 		}
 		return nil
 	}
-	if len(g.flatCoords) != g.stride {
+	if len(g.FlatCoords) != g.stride {
 		return errLengthStrideMismatch
 	}
 	return nil
@@ -107,27 +107,27 @@ func (g *geom0) verify() error {
 
 // Coord returns the ith coord of g.
 func (g *geom1) Coord(i int) Coord {
-	return g.flatCoords[i*g.stride : (i+1)*g.stride]
+	return g.FlatCoords[i*g.stride : (i+1)*g.stride]
 }
 
 // Coords unpacks and returns all of g's coordinates.
 func (g *geom1) Coords() []Coord {
-	return inflate1(g.flatCoords, 0, len(g.flatCoords), g.stride)
+	return inflate1(g.FlatCoords, 0, len(g.FlatCoords), g.stride)
 }
 
 // NumCoords returns the number of coordinates in g.
 func (g *geom1) NumCoords() int {
-	return len(g.flatCoords) / g.stride
+	return len(g.FlatCoords) / g.stride
 }
 
 // Reverse reverses the order of g's coordinates.
 func (g *geom1) Reverse() {
-	reverse1(g.flatCoords, 0, len(g.flatCoords), g.stride)
+	reverse1(g.FlatCoords, 0, len(g.FlatCoords), g.stride)
 }
 
 func (g *geom1) setCoords(coords1 []Coord) error {
 	var err error
-	g.flatCoords, err = deflate1(nil, coords1, g.stride)
+	g.FlatCoords, err = deflate1(nil, coords1, g.stride)
 	return err
 }
 
@@ -136,11 +136,11 @@ func (g *geom1) verify() error {
 		return errStrideLayoutMismatch
 	}
 	if g.stride == 0 {
-		if len(g.flatCoords) != 0 {
+		if len(g.FlatCoords) != 0 {
 			return errNonEmptyFlatCoords
 		}
 	} else {
-		if len(g.flatCoords)%g.stride != 0 {
+		if len(g.FlatCoords)%g.stride != 0 {
 			return errLengthStrideMismatch
 		}
 	}
@@ -149,7 +149,7 @@ func (g *geom1) verify() error {
 
 // Coords returns all of g's coordinates.
 func (g *geom2) Coords() [][]Coord {
-	return inflate2(g.flatCoords, 0, g.ends, g.stride)
+	return inflate2(g.FlatCoords, 0, g.ends, g.stride)
 }
 
 // Ends returns the end indexes of all sub-structures in g.
@@ -159,12 +159,12 @@ func (g *geom2) Ends() []int {
 
 // Reverse reverses the order of coordinates for each sub-structure in g.
 func (g *geom2) Reverse() {
-	reverse2(g.flatCoords, 0, g.ends, g.stride)
+	reverse2(g.FlatCoords, 0, g.ends, g.stride)
 }
 
 func (g *geom2) setCoords(coords2 [][]Coord) error {
 	var err error
-	g.flatCoords, g.ends, err = deflate2(nil, nil, coords2, g.stride)
+	g.FlatCoords, g.ends, err = deflate2(nil, nil, coords2, g.stride)
 	return err
 }
 
@@ -173,7 +173,7 @@ func (g *geom2) verify() error {
 		return errStrideLayoutMismatch
 	}
 	if g.stride == 0 {
-		if len(g.flatCoords) != 0 {
+		if len(g.FlatCoords) != 0 {
 			return errNonEmptyFlatCoords
 		}
 		if len(g.ends) != 0 {
@@ -181,7 +181,7 @@ func (g *geom2) verify() error {
 		}
 		return nil
 	}
-	if len(g.flatCoords)%g.stride != 0 {
+	if len(g.FlatCoords)%g.stride != 0 {
 		return errLengthStrideMismatch
 	}
 	offset := 0
@@ -194,7 +194,7 @@ func (g *geom2) verify() error {
 		}
 		offset = end
 	}
-	if offset != len(g.flatCoords) {
+	if offset != len(g.FlatCoords) {
 		return errIncorrectEnd
 	}
 	return nil
@@ -202,7 +202,7 @@ func (g *geom2) verify() error {
 
 // Coords returns all the coordinates in g.
 func (g *geom3) Coords() [][][]Coord {
-	return inflate3(g.flatCoords, 0, g.endss, g.stride)
+	return inflate3(g.FlatCoords, 0, g.endss, g.stride)
 }
 
 // Endss returns a list of all the sub-sub-structures in g.
@@ -212,12 +212,12 @@ func (g *geom3) Endss() [][]int {
 
 // Reverse reverses the order of coordinates for each sub-sub-structure in g.
 func (g *geom3) Reverse() {
-	reverse3(g.flatCoords, 0, g.endss, g.stride)
+	reverse3(g.FlatCoords, 0, g.endss, g.stride)
 }
 
 func (g *geom3) setCoords(coords3 [][][]Coord) error {
 	var err error
-	g.flatCoords, g.endss, err = deflate3(nil, nil, coords3, g.stride)
+	g.FlatCoords, g.endss, err = deflate3(nil, nil, coords3, g.stride)
 	return err
 }
 
@@ -226,7 +226,7 @@ func (g *geom3) verify() error {
 		return errStrideLayoutMismatch
 	}
 	if g.stride == 0 {
-		if len(g.flatCoords) != 0 {
+		if len(g.FlatCoords) != 0 {
 			return errNonEmptyFlatCoords
 		}
 		if len(g.endss) != 0 {
@@ -234,7 +234,7 @@ func (g *geom3) verify() error {
 		}
 		return nil
 	}
-	if len(g.flatCoords)%g.stride != 0 {
+	if len(g.FlatCoords)%g.stride != 0 {
 		return errLengthStrideMismatch
 	}
 	offset := 0
@@ -249,7 +249,7 @@ func (g *geom3) verify() error {
 			offset = end
 		}
 	}
-	if offset != len(g.flatCoords) {
+	if offset != len(g.FlatCoords) {
 		return errIncorrectEnd
 	}
 	return nil

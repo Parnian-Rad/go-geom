@@ -116,9 +116,9 @@ func TestLineStringInterpolateEmpty(t *testing.T) {
 
 func TestLineStringReserve(t *testing.T) {
 	ls := NewLineString(XYZM)
-	assert.Equal(t, 0, cap(ls.flatCoords))
+	assert.Equal(t, 0, cap(ls.FlatCoords))
 	ls.Reserve(2)
-	assert.Equal(t, 8, cap(ls.flatCoords))
+	assert.Equal(t, 8, cap(ls.FlatCoords))
 }
 
 func TestLineStringStrideMismatch(t *testing.T) {

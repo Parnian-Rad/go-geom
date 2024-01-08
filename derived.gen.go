@@ -186,9 +186,9 @@ func deriveDeepCopy_5(dst, src *MultiPolygon) {
 // deriveDeepCopy_6 recursively copies the contents of src into dst.
 func deriveDeepCopy_6(dst, src *Point) {
 	func() {
-		field := new(geom0)
-		deriveDeepCopy_11(field, &src.geom0)
-		dst.geom0 = *field
+		field := new(Geom0)
+		deriveDeepCopy_11(field, &src.Geom0)
+		dst.Geom0 = *field
 	}()
 }
 
@@ -204,9 +204,9 @@ func deriveDeepCopy_7(dst, src *Polygon) {
 // deriveDeepCopy_8 recursively copies the contents of src into dst.
 func deriveDeepCopy_8(dst, src *geom1) {
 	func() {
-		field := new(geom0)
-		deriveDeepCopy_11(field, &src.geom0)
-		dst.geom0 = *field
+		field := new(Geom0)
+		deriveDeepCopy_11(field, &src.Geom0)
+		dst.Geom0 = *field
 	}()
 }
 
@@ -265,26 +265,26 @@ func deriveDeepCopy_10(dst, src *geom3) {
 }
 
 // deriveDeepCopy_11 recursively copies the contents of src into dst.
-func deriveDeepCopy_11(dst, src *geom0) {
+func deriveDeepCopy_11(dst, src *Geom0) {
 	dst.layout = src.layout
 	dst.stride = src.stride
-	if src.flatCoords == nil {
-		dst.flatCoords = nil
+	if src.FlatCoords == nil {
+		dst.FlatCoords = nil
 	} else {
-		if dst.flatCoords != nil {
-			if len(src.flatCoords) > len(dst.flatCoords) {
-				if cap(dst.flatCoords) >= len(src.flatCoords) {
-					dst.flatCoords = (dst.flatCoords)[:len(src.flatCoords)]
+		if dst.FlatCoords != nil {
+			if len(src.FlatCoords) > len(dst.FlatCoords) {
+				if cap(dst.FlatCoords) >= len(src.FlatCoords) {
+					dst.FlatCoords = (dst.FlatCoords)[:len(src.FlatCoords)]
 				} else {
-					dst.flatCoords = make([]float64, len(src.flatCoords))
+					dst.FlatCoords = make([]float64, len(src.FlatCoords))
 				}
-			} else if len(src.flatCoords) < len(dst.flatCoords) {
-				dst.flatCoords = (dst.flatCoords)[:len(src.flatCoords)]
+			} else if len(src.FlatCoords) < len(dst.FlatCoords) {
+				dst.FlatCoords = (dst.FlatCoords)[:len(src.FlatCoords)]
 			}
 		} else {
-			dst.flatCoords = make([]float64, len(src.flatCoords))
+			dst.FlatCoords = make([]float64, len(src.FlatCoords))
 		}
-		copy(dst.flatCoords, src.flatCoords)
+		copy(dst.FlatCoords, src.FlatCoords)
 	}
 	dst.srid = src.srid
 }

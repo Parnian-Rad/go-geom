@@ -13,7 +13,7 @@ func PointEmptyCoord() float64 {
 
 // A Point represents a single point.
 type Point struct {
-	geom0
+	Geom0
 }
 
 // NewPoint allocates a new Point with layout l and all values zero.
@@ -26,12 +26,12 @@ func NewPointEmpty(l Layout) *Point {
 	return NewPointFlat(l, nil)
 }
 
-// NewPointFlat allocates a new Point with layout l and flat coordinates flatCoords.
+// NewPointFlat allocates a new Point with layout l and flat coordinates FlatCoords.
 func NewPointFlat(l Layout, flatCoords []float64) *Point {
 	g := new(Point)
 	g.layout = l
 	g.stride = l.Stride()
-	g.flatCoords = flatCoords
+	g.FlatCoords = flatCoords
 	return g
 }
 
@@ -93,12 +93,12 @@ func (g *Point) Swap(g2 *Point) {
 
 // X returns g's X-coordinate.
 func (g *Point) X() float64 {
-	return g.flatCoords[0]
+	return g.FlatCoords[0]
 }
 
 // Y returns g's Y-coordinate.
 func (g *Point) Y() float64 {
-	return g.flatCoords[1]
+	return g.FlatCoords[1]
 }
 
 // Z returns g's Z-coordinate, or zero if g has no Z-coordinate.
@@ -107,7 +107,7 @@ func (g *Point) Z() float64 {
 	if zIndex == -1 {
 		return 0
 	}
-	return g.flatCoords[zIndex]
+	return g.FlatCoords[zIndex]
 }
 
 // M returns g's M-coordinate, or zero if g has no M-coordinate.
@@ -116,5 +116,5 @@ func (g *Point) M() float64 {
 	if mIndex == -1 {
 		return 0
 	}
-	return g.flatCoords[mIndex]
+	return g.FlatCoords[mIndex]
 }
