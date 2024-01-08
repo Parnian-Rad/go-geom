@@ -61,37 +61,37 @@ func (e *Encoder) write(sb *strings.Builder, g geom.T) error {
 		if g.Empty() {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords0(sb, g.FlatCoords(), layout.Stride())
+		return e.writeFlatCoords0(sb, g.FlatCoordinates(), layout.Stride())
 	case *geom.LineString:
 		if g.Empty() {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords1(sb, g.FlatCoords(), layout.Stride())
+		return e.writeFlatCoords1(sb, g.FlatCoordinates(), layout.Stride())
 	case *geom.LinearRing:
 		if g.Empty() {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords1(sb, g.FlatCoords(), layout.Stride())
+		return e.writeFlatCoords1(sb, g.FlatCoordinates(), layout.Stride())
 	case *geom.Polygon:
 		if g.Empty() {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords2(sb, g.FlatCoords(), 0, g.Ends(), layout.Stride())
+		return e.writeFlatCoords2(sb, g.FlatCoordinates(), 0, g.Ends(), layout.Stride())
 	case *geom.MultiPoint:
 		if g.NumPoints() == 0 {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords1Ends(sb, g.FlatCoords(), 0, g.Ends())
+		return e.writeFlatCoords1Ends(sb, g.FlatCoordinates(), 0, g.Ends())
 	case *geom.MultiLineString:
 		if g.NumLineStrings() == 0 {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords2(sb, g.FlatCoords(), 0, g.Ends(), layout.Stride())
+		return e.writeFlatCoords2(sb, g.FlatCoordinates(), 0, g.Ends(), layout.Stride())
 	case *geom.MultiPolygon:
 		if g.NumPolygons() == 0 {
 			return e.writeEMPTY(sb)
 		}
-		return e.writeFlatCoords3(sb, g.FlatCoords(), g.Endss(), layout.Stride())
+		return e.writeFlatCoords3(sb, g.FlatCoordinates(), g.Endss(), layout.Stride())
 	case *geom.GeometryCollection:
 		if g.NumGeoms() == 0 {
 			return e.writeEMPTY(sb)

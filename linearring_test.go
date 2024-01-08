@@ -23,7 +23,7 @@ func (g *LinearRing) assertEquals(t *testing.T, e *expectedLinearRing) {
 	assert.NoError(t, g.verify())
 	assert.Equal(t, e.layout, g.Layout())
 	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
+	assert.Equal(t, e.flatCoords, g.FlatCoordinates())
 	assert.Zero(t, g.Ends())
 	assert.Zero(t, g.Endss())
 	assert.Equal(t, e.coords, g.Coords())
@@ -82,7 +82,7 @@ func TestLinearRing(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.lr.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.lr.FlatCoords(), tc.lr.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.lr.FlatCoordinates(), tc.lr.Clone().FlatCoordinates()))
 		})
 	}
 }

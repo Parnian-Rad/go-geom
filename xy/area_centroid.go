@@ -102,9 +102,9 @@ func (calc *AreaCentroidCalculator) GetCentroid() geom.Coord {
 func (calc *AreaCentroidCalculator) AddPolygon(polygon *geom.Polygon) {
 	calc.setBasePoint(polygon.Coord(0))
 
-	calc.addShell(polygon.LinearRing(0).FlatCoords())
+	calc.addShell(polygon.LinearRing(0).FlatCoordinates())
 	for i := 1; i < polygon.NumLinearRings(); i++ {
-		calc.addHole(polygon.LinearRing(i).FlatCoords())
+		calc.addHole(polygon.LinearRing(i).FlatCoordinates())
 	}
 }
 

@@ -34,12 +34,12 @@ func NewMultiPointFlat(
 	g := new(MultiPoint)
 	g.layout = layout
 	g.stride = layout.Stride()
-	g.FlatCoords = flatCoords
+	g.FlatCoordinates = flatCoords
 	for _, opt := range opts {
 		opt(g)
 	}
 	// If no ends are provided, assume all points are non empty.
-	if g.ends == nil && len(g.FlatCoords) > 0 {
+	if g.ends == nil && len(g.FlatCoordinates) > 0 {
 		numCoords := 0
 		if g.stride > 0 {
 			numCoords = len(flatCoords) / g.stride
@@ -82,22 +82,22 @@ func (g *MultiPoint) Coord(i int) Coord {
 	if g.ends[i] == before {
 		return nil
 	}
-	return g.FlatCoords[before:g.ends[i]]
+	return g.FlatCoordinates[before:g.ends[i]]
 }
 
 // SetCoords sets the coordinates.
 func (g *MultiPoint) SetCoords(coords []Coord) (*MultiPoint, error) {
-	g.FlatCoords = nil
+	g.FlatCoordinates = nil
 	g.ends = nil
 	for _, c := range coords {
 		if c != nil {
 			var err error
-			g.FlatCoords, err = deflate0(g.FlatCoords, c, g.stride)
+			g.FlatCoordinates, err = deflate0(g.FlatCoordinates, c, g.stride)
 			if err != nil {
 				return nil, err
 			}
 		}
-		g.ends = append(g.ends, len(g.FlatCoords))
+		g.ends = append(g.ends, len(g.FlatCoordinates))
 	}
 	return g, nil
 }
@@ -109,7 +109,7 @@ func (g *MultiPoint) Coords() []Coord {
 	prevEnd := 0
 	for i, end := range g.ends {
 		if end != prevEnd {
-			coords1[i] = inflate0(g.FlatCoords, offset, offset+g.stride, g.stride)
+			coords1[i] = inflate0(g.FlatCoordinates, offset, offset+g.stride, g.stride)
 			offset += g.stride
 		}
 		prevEnd = end
@@ -148,9 +148,9 @@ func (g *MultiPoint) Push(p *Point) error {
 		return ErrLayoutMismatch{Got: p.layout, Want: g.layout}
 	}
 	if !p.Empty() {
-		g.FlatCoords = append(g.FlatCoords, p.FlatCoords...)
+		g.FlatCoordinates = append(g.FlatCoordinates, p.FlatCoordinates...)
 	}
-	g.ends = append(g.ends, len(g.FlatCoords))
+	g.ends = append(g.ends, len(g.FlatCoordinates))
 	return nil
 }
 

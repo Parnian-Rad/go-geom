@@ -268,23 +268,23 @@ func deriveDeepCopy_10(dst, src *geom3) {
 func deriveDeepCopy_11(dst, src *Geom0) {
 	dst.layout = src.layout
 	dst.stride = src.stride
-	if src.FlatCoords == nil {
-		dst.FlatCoords = nil
+	if src.FlatCoordinates == nil {
+		dst.FlatCoordinates = nil
 	} else {
-		if dst.FlatCoords != nil {
-			if len(src.FlatCoords) > len(dst.FlatCoords) {
-				if cap(dst.FlatCoords) >= len(src.FlatCoords) {
-					dst.FlatCoords = (dst.FlatCoords)[:len(src.FlatCoords)]
+		if dst.FlatCoordinates != nil {
+			if len(src.FlatCoordinates) > len(dst.FlatCoordinates) {
+				if cap(dst.FlatCoordinates) >= len(src.FlatCoordinates) {
+					dst.FlatCoordinates = (dst.FlatCoordinates)[:len(src.FlatCoordinates)]
 				} else {
-					dst.FlatCoords = make([]float64, len(src.FlatCoords))
+					dst.FlatCoordinates = make([]float64, len(src.FlatCoordinates))
 				}
-			} else if len(src.FlatCoords) < len(dst.FlatCoords) {
-				dst.FlatCoords = (dst.FlatCoords)[:len(src.FlatCoords)]
+			} else if len(src.FlatCoordinates) < len(dst.FlatCoordinates) {
+				dst.FlatCoordinates = (dst.FlatCoordinates)[:len(src.FlatCoordinates)]
 			}
 		} else {
-			dst.FlatCoords = make([]float64, len(src.FlatCoords))
+			dst.FlatCoordinates = make([]float64, len(src.FlatCoordinates))
 		}
-		copy(dst.FlatCoords, src.FlatCoords)
+		copy(dst.FlatCoordinates, src.FlatCoordinates)
 	}
 	dst.srid = src.srid
 }

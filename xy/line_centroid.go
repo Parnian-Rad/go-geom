@@ -40,7 +40,7 @@ func MultiLineCentroid(line *geom.MultiLineString) (centroid geom.Coord) {
 	calculator := NewLineCentroidCalculator(line.Layout())
 	start := 0
 	for _, end := range line.Ends() {
-		calculator.addLine(line.FlatCoords(), start, end)
+		calculator.addLine(line.FlatCoordinates(), start, end)
 		start = end
 	}
 
@@ -88,14 +88,14 @@ func (calc *LineCentroidCalculator) AddPolygon(polygon *geom.Polygon) *LineCentr
 
 // AddLine adds a LineString to the current calculation
 func (calc *LineCentroidCalculator) AddLine(line *geom.LineString) *LineCentroidCalculator {
-	coords := line.FlatCoords()
+	coords := line.FlatCoordinates()
 	calc.addLine(coords, 0, len(coords))
 	return calc
 }
 
 // AddLinearRing adds a LinearRing to the current calculation
 func (calc *LineCentroidCalculator) AddLinearRing(line *geom.LinearRing) *LineCentroidCalculator {
-	coords := line.FlatCoords()
+	coords := line.FlatCoordinates()
 	calc.addLine(coords, 0, len(coords))
 	return calc
 }

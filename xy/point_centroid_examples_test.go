@@ -33,7 +33,7 @@ func ExampleMultiPointCentroid() {
 
 func ExamplePointsCentroidFlat() {
 	multiPoint := geom.NewMultiPointFlat(geom.XY, []float64{0, 0, 2, 0, 2, 2, 0, 2})
-	centroid := xy.PointsCentroidFlat(multiPoint.Layout(), multiPoint.FlatCoords())
+	centroid := xy.PointsCentroidFlat(multiPoint.Layout(), multiPoint.FlatCoordinates())
 	fmt.Println(centroid)
 	// Output: [1 1]
 }
@@ -41,7 +41,7 @@ func ExamplePointsCentroidFlat() {
 func ExampleNewPointCentroidCalculator() {
 	polygon := geom.NewPolygonFlat(geom.XY, []float64{0, 0, 2, 0, 2, 2, 0, 2}, []int{8})
 	calculator := xy.NewPointCentroidCalculator()
-	coords := polygon.FlatCoords()
+	coords := polygon.FlatCoordinates()
 	stride := polygon.Layout().Stride()
 
 	for i := 0; i < len(coords); i += stride {

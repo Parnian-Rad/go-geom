@@ -23,7 +23,7 @@ func (g *Point) assertEquals(t *testing.T, e *expectedPoint) {
 	assert.NoError(t, g.verify())
 	assert.Equal(t, e.layout, g.Layout())
 	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
+	assert.Equal(t, e.flatCoords, g.FlatCoordinates())
 	assert.Zero(t, g.Ends())
 	assert.Zero(t, g.Endss())
 	assert.Equal(t, 1, g.NumCoords())
@@ -119,7 +119,7 @@ func TestPoint(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.p.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.p.FlatCoords(), tc.p.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.p.FlatCoordinates(), tc.p.Clone().FlatCoordinates()))
 		})
 	}
 }

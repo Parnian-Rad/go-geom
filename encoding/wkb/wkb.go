@@ -270,11 +270,11 @@ func Write(w io.Writer, byteOrder binary.ByteOrder, g geom.T, opts ...wkbcommon.
 				return fmt.Errorf("cannot encode empty Point in WKB (unknown option: %d)", wkbcommon.EmptyPointHandlingNaN)
 			}
 		}
-		return wkbcommon.WriteFlatCoords0(w, byteOrder, g.FlatCoords())
+		return wkbcommon.WriteFlatCoords0(w, byteOrder, g.FlatCoordinates())
 	case *geom.LineString:
-		return wkbcommon.WriteFlatCoords1(w, byteOrder, g.FlatCoords(), g.Stride())
+		return wkbcommon.WriteFlatCoords1(w, byteOrder, g.FlatCoordinates(), g.Stride())
 	case *geom.Polygon:
-		return wkbcommon.WriteFlatCoords2(w, byteOrder, g.FlatCoords(), g.Ends(), g.Stride())
+		return wkbcommon.WriteFlatCoords2(w, byteOrder, g.FlatCoordinates(), g.Ends(), g.Stride())
 	case *geom.MultiPoint:
 		n := g.NumPoints()
 		if err := wkbcommon.WriteUInt32(w, byteOrder, uint32(n)); err != nil {

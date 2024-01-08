@@ -20,14 +20,14 @@ func ExampleOrientationIndex() {
 
 func ExampleIsPointInRing() {
 	ring := geom.NewLinearRingFlat(geom.XY, []float64{10, 10, 20, 10, 30, 30, 10, 30, 10, 10})
-	inRing := xy.IsPointInRing(ring.Layout(), geom.Coord{1, 1}, ring.FlatCoords())
+	inRing := xy.IsPointInRing(ring.Layout(), geom.Coord{1, 1}, ring.FlatCoordinates())
 	fmt.Println(inRing)
 	// Output: false
 }
 
 func ExampleLocatePointInRing() {
 	ring := geom.NewLinearRingFlat(geom.XY, []float64{10, 10, 20, 10, 30, 30, 10, 30, 10, 10})
-	pointInRing := xy.LocatePointInRing(ring.Layout(), geom.Coord{15, 15}, ring.FlatCoords())
+	pointInRing := xy.LocatePointInRing(ring.Layout(), geom.Coord{15, 15}, ring.FlatCoordinates())
 	fmt.Println(pointInRing)
 	// Output: Interior
 }
@@ -39,14 +39,14 @@ func ExampleIsOnLine() {
 		{10, 0},
 		{10, 20},
 	})
-	onLine := xy.IsOnLine(line.Layout(), geom.Coord{5, 0}, line.FlatCoords())
+	onLine := xy.IsOnLine(line.Layout(), geom.Coord{5, 0}, line.FlatCoordinates())
 	fmt.Println(onLine)
 	// Output: true
 }
 
 func ExampleIsRingCounterClockwise() {
 	ring := geom.NewLinearRingFlat(geom.XY, []float64{10, 10, 20, 10, 30, 30, 10, 30, 10, 10})
-	clockwise := xy.IsRingCounterClockwise(ring.Layout(), ring.FlatCoords())
+	clockwise := xy.IsRingCounterClockwise(ring.Layout(), ring.FlatCoordinates())
 	fmt.Println(clockwise)
 	// Output: true
 }
@@ -72,7 +72,7 @@ func ExamplePerpendicularDistanceFromPointToLine() {
 func ExampleDistanceFromPointToLineString() {
 	p := geom.Coord{50, 50}
 	lineString := geom.NewLineStringFlat(geom.XY, []float64{0, 0, 10, 10, 10, 20, 10, 100})
-	distance := xy.DistanceFromPointToLineString(lineString.Layout(), p, lineString.FlatCoords())
+	distance := xy.DistanceFromPointToLineString(lineString.Layout(), p, lineString.FlatCoordinates())
 	fmt.Println(distance)
 	// Output: 40
 }
@@ -87,7 +87,7 @@ func ExampleDistanceFromLineToLine() {
 
 func ExampleSignedArea() {
 	ring := geom.NewLinearRingFlat(geom.XY, []float64{10, 10, 20, 10, 30, 30, 10, 30, 10, 10})
-	singedArea := xy.SignedArea(ring.Layout(), ring.FlatCoords())
+	singedArea := xy.SignedArea(ring.Layout(), ring.FlatCoordinates())
 	fmt.Println(singedArea)
 	// Output: -300
 }

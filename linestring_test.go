@@ -23,7 +23,7 @@ func (g *LineString) assertEquals(t *testing.T, e *expectedLineString) {
 	assert.NoError(t, g.verify())
 	assert.Equal(t, e.layout, g.Layout())
 	assert.Equal(t, e.stride, g.Stride())
-	assert.Equal(t, e.flatCoords, g.FlatCoords())
+	assert.Equal(t, e.flatCoords, g.FlatCoordinates())
 	assert.Zero(t, g.Ends())
 	assert.Zero(t, g.Endss())
 	assert.Equal(t, e.coords, g.Coords())
@@ -82,7 +82,7 @@ func TestLineString(t *testing.T) {
 	} {
 		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			tc.ls.assertEquals(t, tc.expected)
-			assert.False(t, aliases(tc.ls.FlatCoords(), tc.ls.Clone().FlatCoords()))
+			assert.False(t, aliases(tc.ls.FlatCoordinates(), tc.ls.Clone().FlatCoordinates()))
 		})
 	}
 }
@@ -116,9 +116,9 @@ func TestLineStringInterpolateEmpty(t *testing.T) {
 
 func TestLineStringReserve(t *testing.T) {
 	ls := NewLineString(XYZM)
-	assert.Equal(t, 0, cap(ls.FlatCoords))
+	assert.Equal(t, 0, cap(ls.FlatCoordinates))
 	ls.Reserve(2)
-	assert.Equal(t, 8, cap(ls.FlatCoords))
+	assert.Equal(t, 8, cap(ls.FlatCoordinates))
 }
 
 func TestLineStringStrideMismatch(t *testing.T) {
@@ -173,5 +173,5 @@ func TestLineStringSetSRID(t *testing.T) {
 func TestLineStringSubLineString(t *testing.T) {
 	ls := NewLineString(XY).MustSetCoords([]Coord{{0, 1}, {2, 3}, {4, 5}})
 	sls := ls.SubLineString(0, 1)
-	assert.True(t, aliases(ls.FlatCoords(), sls.FlatCoords()))
+	assert.True(t, aliases(ls.FlatCoordinates(), sls.FlatCoordinates()))
 }

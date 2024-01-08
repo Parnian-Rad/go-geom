@@ -27,12 +27,12 @@ func TestCentroid(t *testing.T) {
 		},
 		{
 			id:       3,
-			geometry: geom.NewLineStringFlat(internal.TestRing.Layout(), internal.TestRing.FlatCoords()),
+			geometry: geom.NewLineStringFlat(internal.TestRing.Layout(), internal.TestRing.FlatCoordinates()),
 			centroid: geom.Coord{-44.10405031184597, 42.3149062174918},
 		},
 		{
 			id:       4,
-			geometry: geom.NewMultiLineStringFlat(internal.TestRing.Layout(), internal.TestRing.FlatCoords(), []int{len(internal.TestRing.FlatCoords())}),
+			geometry: geom.NewMultiLineStringFlat(internal.TestRing.Layout(), internal.TestRing.FlatCoordinates(), []int{len(internal.TestRing.FlatCoordinates())}),
 			centroid: geom.Coord{-44.10405031184597, 42.3149062174918},
 		},
 		{

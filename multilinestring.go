@@ -15,7 +15,7 @@ func NewMultiLineStringFlat(layout Layout, flatCoords []float64, ends []int) *Mu
 	g := new(MultiLineString)
 	g.layout = layout
 	g.stride = layout.Stride()
-	g.FlatCoords = flatCoords
+	g.FlatCoordinates = flatCoords
 	g.ends = ends
 	return g
 }
@@ -32,7 +32,7 @@ func (g *MultiLineString) Clone() *MultiLineString {
 
 // Length returns the sum of the length of the LineStrings.
 func (g *MultiLineString) Length() float64 {
-	return length2(g.FlatCoords, 0, g.ends, g.stride)
+	return length2(g.FlatCoordinates, 0, g.ends, g.stride)
 }
 
 // LineString returns the ith LineString.
@@ -44,7 +44,7 @@ func (g *MultiLineString) LineString(i int) *LineString {
 	if offset == g.ends[i] {
 		return NewLineString(g.layout)
 	}
-	return NewLineStringFlat(g.layout, g.FlatCoords[offset:g.ends[i]])
+	return NewLineStringFlat(g.layout, g.FlatCoordinates[offset:g.ends[i]])
 }
 
 // MustSetCoords sets the coordinates and panics on any error.
@@ -63,8 +63,8 @@ func (g *MultiLineString) Push(ls *LineString) error {
 	if ls.layout != g.layout {
 		return ErrLayoutMismatch{Got: ls.layout, Want: g.layout}
 	}
-	g.FlatCoords = append(g.FlatCoords, ls.FlatCoords...)
-	g.ends = append(g.ends, len(g.FlatCoords))
+	g.FlatCoordinates = append(g.FlatCoordinates, ls.FlatCoordinates...)
+	g.ends = append(g.ends, len(g.FlatCoordinates))
 	return nil
 }
 

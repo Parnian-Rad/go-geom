@@ -264,11 +264,11 @@ func Write(w io.Writer, byteOrder binary.ByteOrder, g geom.T) error {
 		if g.Empty() {
 			return wkbcommon.WriteEmptyPointAsNaN(w, byteOrder, g.Stride())
 		}
-		return wkbcommon.WriteFlatCoords0(w, byteOrder, g.FlatCoords())
+		return wkbcommon.WriteFlatCoords0(w, byteOrder, g.FlatCoordinates())
 	case *geom.LineString:
-		return wkbcommon.WriteFlatCoords1(w, byteOrder, g.FlatCoords(), g.Stride())
+		return wkbcommon.WriteFlatCoords1(w, byteOrder, g.FlatCoordinates(), g.Stride())
 	case *geom.Polygon:
-		return wkbcommon.WriteFlatCoords2(w, byteOrder, g.FlatCoords(), g.Ends(), g.Stride())
+		return wkbcommon.WriteFlatCoords2(w, byteOrder, g.FlatCoordinates(), g.Ends(), g.Stride())
 	case *geom.MultiPoint:
 		n := g.NumPoints()
 		if err := binary.Write(w, byteOrder, uint32(n)); err != nil {
