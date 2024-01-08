@@ -25,17 +25,17 @@ type geom3 struct {
 
 // Bounds returns the bounds of g.
 func (g *Geom0) Bounds() *Bounds {
-	return NewBounds(g.layout).extendFlatCoords(g.FlatCoords, 0, len(g.FlatCoords), g.stride)
+	return NewBounds(g.layout).extendFlatCoords(g.FlatCoordinates, 0, len(g.FlatCoordinates), g.stride)
 }
 
 // Coords returns all the coordinates in g, i.e. a single coordinate.
 func (g *Geom0) Coords() Coord {
-	return inflate0(g.FlatCoords, 0, len(g.FlatCoords), g.stride)
+	return inflate0(g.FlatCoordinates, 0, len(g.FlatCoordinates), g.stride)
 }
 
 // Empty returns true if g contains no coordinates.
 func (g *Geom0) Empty() bool {
-	return len(g.FlatCoords) == 0
+	return len(g.FlatCoordinates) == 0
 }
 
 // Ends returns the end indexes of sub-structures of g, i.e. an empty slice.
@@ -51,7 +51,7 @@ func (g *Geom0) Endss() [][]int {
 
 // FlatCoordinates returns the flat coordinates of g.
 func (g *Geom0) FlatCoords() []float64 {
-	return g.FlatCoords
+	return g.FlatCoordinates
 }
 
 // Layout returns g's layout.
@@ -66,10 +66,10 @@ func (g *Geom0) NumCoords() int {
 
 // Reserve reserves space in g for n coordinates.
 func (g *Geom0) Reserve(n int) {
-	if cap(g.FlatCoords) < n*g.stride {
-		fcs := make([]float64, len(g.FlatCoords), n*g.stride)
-		copy(fcs, g.FlatCoords)
-		g.FlatCoords = fcs
+	if cap(g.FlatCoordinates) < n*g.stride {
+		fcs := make([]float64, len(g.FlatCoordinates), n*g.stride)
+		copy(fcs, g.FlatCoordinates)
+		g.FlatCoordinates = fcs
 	}
 }
 
@@ -80,7 +80,7 @@ func (g *Geom0) SRID() int {
 
 func (g *Geom0) setCoords(coords0 []float64) error {
 	var err error
-	g.FlatCoords, err = deflate0(nil, coords0, g.stride)
+	g.FlatCoordinates, err = deflate0(nil, coords0, g.stride)
 	return err
 }
 
@@ -94,12 +94,12 @@ func (g *Geom0) verify() error {
 		return errStrideLayoutMismatch
 	}
 	if g.stride == 0 {
-		if len(g.FlatCoords) != 0 {
+		if len(g.FlatCoordinates) != 0 {
 			return errNonEmptyFlatCoords
 		}
 		return nil
 	}
-	if len(g.FlatCoords) != g.stride {
+	if len(g.FlatCoordinates) != g.stride {
 		return errLengthStrideMismatch
 	}
 	return nil
@@ -110,7 +110,7 @@ func (g *geom1) Coord(i int) Coord {
 	return g.FlatCoordinates[i*g.stride : (i+1)*g.stride]
 }
 
-// Coords unpacks and returns all of g's coordinates.
+// Coords unpacks and returns all of g's coFlatCoordsordinates.
 func (g *geom1) Coords() []Coord {
 	return inflate1(g.FlatCoordinates, 0, len(g.FlatCoordinates), g.stride)
 }
